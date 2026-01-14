@@ -14,4 +14,3 @@ spec:
     path: /mnt/nfs
     server: 192.168.15.3
   storageClassName: giropops
-
