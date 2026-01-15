@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-registry-pod
+  labels:
+    app: private-registry-app
+spec:
+  containers:
+    - name: private-registry-container
+      image: your-private-registry.com/your-image:latest
+      ports:
+        - containerPort: 80
+  imagePullSecrets:
+    - name: dockerhub-secret

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: giropops
+  labels:
+    app: giropops
+spec:
+  containers:
+    - name: giropops
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      env:
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: first-secret
+              key: username
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: first-secret
+              key: password
