@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+        - containerPort: 443
+      volumeMounts:
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        - name: nginx-ssl-volume 
+          mountPath: /etc/nginx/ssl
+          readOnly: true
+  volumes:
+    - name: nginx-config-volume
+      configMap:
+        name: nginx-config
+    - name: nginx-ssl-volume
+      secret:
+        secretName: nginx-ssl-secret
+        items:
+          - key: tls.crt
+            path: nginx.crt
+          - key: tls.key
+            path: nginx.key
